@@ -1,0 +1,15 @@
+sudo: required
+language: java
+jdk:
+- openjdk11
+services: 
+env:
+  global:
+    secure: QqSnNlDBp3KvY/VFxJlm80s1MdFEEnO+VhGpfyvXO6LJQ94q9YF8yj32krsLPu38Txx5E+082MPLneQSGe4wAmfdGmCnjNAo1313LmxtG7O9eVrjD8l5JdzVKBojMdeJcVlKIHxMYVw7U53c1JlZm/9CNOZ3gh7iwAKQ2xO6GTn9sQDGiKIPiemccuxTB1O4DGscjDcBq88qJR+0z9Febf/xVdaU42u220cOAA3qgdzzGs+VH+kg+tXz6Ke0TSS83NrN7JdctI/Xxv1tqx3Twu1UFMlZZlHWhW8eNJMXuxxo6iJaot1CGgHs13C0cIRFc9bDwPhqiMBiPodcMzVU8xdOrx5htMltg6MDrsTEpilYVBOsT9yew7x5sqRQciZvspCmre6UFF72w7ocYs3ga6K5+ZOToxqI993IDl/ccOUl5r68gBkkX6/SGadb2BWdxN1nCm9RihMm3Lx+OoROSkLIYmAVNb6DPuGDganTz9M4uhvQBilfGgEQsOLU2pZlou9Of8hgK0qwNDrs5THUsjQDr684zk5nh53UXY4oznwiORcuV2Jcqb//Yv1SBaoKORtV+dyd66VZ41zLN6OiT9X3z5LxjyswL8hur6r6Vk28k4ZZeYbLvvuuRWhYLqpFiYyKnDp4U/C6ApbzHV5y5vrLkH9qCQjB1SNx4L90QCk=
+script:
+- "./gradlew clean build"
+deploy:
+  provider: heroku
+  api_key: "$HEROKU_API_KEY"
+  app:
+    master: murcy-mail
