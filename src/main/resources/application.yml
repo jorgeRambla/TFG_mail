@@ -1,0 +1,24 @@
+spring:
+  jpa:
+    hibernate.ddl-auto: update
+    properties.hibernate.temp.use_jdbc_metadata_defaults: false
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    show-sql: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/mail
+    username: postgres
+    password: admin
+  mail:
+    host: ${MAIL_SERVER:localhost}
+    port: ${MAIL_SERVER_PORT:25}
+    username: ${MAIL:admin@murcy.es}
+    password: ${MAIL_PASSWORD:passwd123}
+    protocol: ${MAIL_PROTOCOL:smtp}
+    properties:
+      mail:
+        smtp:
+          auth: ${MAIL_AUTH:false}
+          starttls.enable: ${MAIL_TTLS:false}
+murcy:
+  api-key: ${API_KEY:secretapikey}
