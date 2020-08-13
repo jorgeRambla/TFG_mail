@@ -1,6 +1,5 @@
 package es.unizar.murcy.controller;
 
-import es.unizar.murcy.exception.TemplateBadRequestException;
 import es.unizar.murcy.exception.TemplateNotFoundException;
 import es.unizar.murcy.exception.TemplateTemplateNameBadRequestException;
 import es.unizar.murcy.model.MailRequest;
@@ -17,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 public class MailController {
 
     private final TemplateService templateService;
@@ -27,6 +27,7 @@ public class MailController {
         this.mailService = mailService;
     }
 
+    @CrossOrigin
     @PostMapping("/mail/send")
     public ResponseEntity<String> sendMail(@RequestBody MailRequest mailRequest) {
         Template template = templateService.getTemplate(mailRequest.getTemplateName())
@@ -39,6 +40,7 @@ public class MailController {
         return ResponseEntity.status(HttpStatus.OK).body("Mail send");
     }
 
+    @CrossOrigin
     @GetMapping("/template/{id}")
     public ResponseEntity<Template> getTemplateById(@PathVariable long id) {
         Template template = templateService.getTemplate(id)
@@ -48,11 +50,13 @@ public class MailController {
 
     }
 
+    @CrossOrigin
     @GetMapping("/template/list")
     public ResponseEntity<List<TemplateSimplifiedDto>> getTemplateList() {
         return ResponseEntity.status(HttpStatus.OK).body(templateService.getAllSimplified());
     }
 
+    @CrossOrigin
     @PutMapping("/template/{id}")
     public ResponseEntity<TemplateSimplifiedDto> updateTemplate(@RequestBody TemplateRequest templateRequest, @PathVariable long id) {
         Template template = templateService.getTemplate(id)
@@ -86,6 +90,7 @@ public class MailController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new TemplateSimplifiedDto(templateService.update(updatedTemplate)));
     }
 
+    @CrossOrigin
     @PostMapping("/template")
     public ResponseEntity<TemplateSimplifiedDto> createTemplate(@RequestBody TemplateRequest templateRequest) {
         Optional<Template> templateOptional = templateService.getTemplate(templateRequest.getTemplateName());
