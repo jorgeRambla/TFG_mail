@@ -83,7 +83,7 @@ public class TemplateRequest {
                 } else {
                     String[] data = Template.WHITE_ARGUMENTS.get(upperCaseArgument);
                     upperCaseArgument = String.join("", data);
-                    htmlBody = htmlBody.replace(argument, upperCaseArgument);
+                    htmlBody = htmlBody.replace("${".concat(argument).concat("}"), upperCaseArgument);
                     subject = subject.replace(argument, upperCaseArgument);
                     formattedArguments.add(data[0].replace("${", "").replace("}", ""));
                 }

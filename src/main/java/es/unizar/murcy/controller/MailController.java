@@ -53,9 +53,37 @@ public class MailController {
         return ResponseEntity.status(HttpStatus.OK).body(templateService.getAllSimplified());
     }
 
-    @PutMapping("/template")
-    public ResponseEntity<Template> updateTemplate() {
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+    @PutMapping("/template/{id}")
+    public ResponseEntity<TemplateSimplifiedDto> updateTemplate(@RequestBody TemplateRequest templateRequest, @PathVariable long id) {
+        Template template = templateService.getTemplate(id)
+                .orElseThrow(TemplateNotFoundException::new);
+
+        if (templateRequest.getCss() == null) {
+            templateRequest.setCss(template.getCss());
+        }
+
+        if (templateRequest.getTemplateName() == null || templateRequest.getTemplateName().isEmpty()) {
+            templateRequest.setTemplateName(template.getTemplateName());
+        } else {
+            Optional<Template> templateOptional = templateService.getTemplate(templateRequest.getTemplateName());
+            if (templateOptional.isPresent() && templateOptional.get().getId() != id) {
+                throw new TemplateTemplateNameBadRequestException();
+            }
+        }
+
+        if(templateRequest.getSubject() == null || templateRequest.getSubject().isEmpty()) {
+            templateRequest.setSubject(template.getSubject());
+        }
+
+        if(templateRequest.getHtmlBody() == null || templateRequest.getHtmlBody().isEmpty()) {
+            templateRequest.setHtmlBody(template.getHtmlTemplate());
+        }
+
+
+        Template updatedTemplate = templateRequest.transformToEntity();
+        updatedTemplate.setId(template.getId());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(new TemplateSimplifiedDto(templateService.update(updatedTemplate)));
     }
 
     @PostMapping("/template")

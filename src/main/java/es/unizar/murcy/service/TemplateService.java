@@ -38,4 +38,8 @@ public class TemplateService {
     public Template createTemplate(Template template) {
         return templateRepository.save(template);
     }
+    public Template update(Template template) {
+        return templateRepository.save(template);
+    }
+
 }
