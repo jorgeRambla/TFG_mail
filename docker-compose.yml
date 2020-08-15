@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    container_name: "maildb"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    env_file:
+      - enviroment.env
+  mail_api_service:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: mail_api_service
+    ports:
+      - "8080:8080"
+    env_file:
+      - enviroment.env
+    depends_on:
+      - postgres
