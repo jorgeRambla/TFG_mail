@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://maildb/${POSTGRES_DB}
+    url: jdbc:postgresql://murcydb:5432/${POSTGRES_DB_MURCY_MAIL}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
   jpa:
